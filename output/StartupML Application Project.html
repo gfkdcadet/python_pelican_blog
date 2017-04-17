@@ -1,0 +1,2864 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="/images/dodgest_logo3.jpg" type="image/x-icon">
+    <link rel="icon" href="/images/dodgest_logo3.jpg" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Chris Cronin" />
+<meta name="description" content="Starup.ML - Global Terrorism Attact Attribution Challenge¶Chris Cronin¶ This github post is part of a submission for Startup.ML's San Francisco fellowship. To showcase my knowledge and skill level with data science, I chose to work on the Global Terrorism Attack Attribution problem, which asks to build a model that can predict what terrorist group is responsible for attacks where the terrorist group is unknown. The decision tree grid search classification model had the highest accuracy (95%) for predicting the terrorist group of in sample test data." />
+<meta name="keywords" content="StartupML">
+<meta property="og:site_name" content="Chris' Blog"/>
+<meta property="og:title" content="StartupML Application Project"/>
+<meta property="og:description" content="Starup.ML - Global Terrorism Attact Attribution Challenge¶Chris Cronin¶ This github post is part of a submission for Startup.ML's San Francisco fellowship. To showcase my knowledge and skill level with data science, I chose to work on the Global Terrorism Attack Attribution problem, which asks to build a model that can predict what terrorist group is responsible for attacks where the terrorist group is unknown. The decision tree grid search classification model had the highest accuracy (95%) for predicting the terrorist group of in sample test data."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/StartupML Application Project.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-07-05 20:00:00-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="/author/chris-cronin.html">
+<meta property="article:section" content="Projects"/>
+<meta property="article:tag" content="StartupML"/>
+<meta property="og:image" content="/images/profshot.jpg">
+
+  <title>Chris' Blog &ndash; StartupML Application Project</title>
+
+
+  <link rel="stylesheet" type="text/css" href="/theme/stylesheet/resources.css">
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="">
+        <img src="/images/profshot.jpg" alt="Chris Cronin" title="Chris Cronin">
+      </a>
+      <h1><a href="">Chris Cronin</a></h1>
+
+<p>MBA & Data Scientist</p>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/category/projects.html">Projects</a></li>
+          <li><a href="/pages/programs.html">Programs</a></li>
+          <li><a href="/pages/conferences.html">Conferences</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/cvcronin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/ccronin51" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="/index.html">    Home
+</a>
+
+      <a href="/category/projects.html">Projects</a>
+      <a href="/tags.html">Tags</a>
+      <a href="/pages/resources.html">Resources</a>
+
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="StartupML Application Project">StartupML Application Project</h1>
+    <p>
+          Posted on Tue 05 July 2016 in <a href="/category/projects.html">Projects</a>
+
+
+    </p>
+  </header>
+
+
+  <div class="article_content">
+    <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Starup.ML---Global-Terrorism-Attact-Attribution-Challenge">Starup.ML - Global Terrorism Attact Attribution Challenge<a class="anchor-link" href="#Starup.ML---Global-Terrorism-Attact-Attribution-Challenge">¶</a></h1><h2 id="Chris-Cronin">Chris Cronin<a class="anchor-link" href="#Chris-Cronin">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This github post is part of a submission for Startup.ML's San Francisco fellowship. To showcase my knowledge and skill level with data science, I chose to work on the Global Terrorism Attack Attribution problem, which asks to build a model that can predict what terrorist group is responsible for attacks where the terrorist group is unknown. The decision tree grid search classification model had the highest accuracy (95%) for predicting the terrorist group of in sample test data.</p>
+<p>The data for this challenge can be found at <a href="https://www.start.umd.edu/gtd/">https://www.start.umd.edu/gtd/</a></p>
+<p>Download this file: globalterrorismdb_0615dist</p>
+<p>Save it as a csv with the name: terrorist_data.csv</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Agenda">Agenda<a class="anchor-link" href="#Agenda">¶</a></h2><ol>
+<li>Problem Statement</li>
+<li>Data Extraction / Loading</li>
+<li>Data Cleaning (Fill Null values)</li>
+<li>Model Setup</li>
+<li>Model Evaluation</li>
+<li>Insights / Conclusion</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Imports">Imports<a class="anchor-link" href="#Imports">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">patsy</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">seaborn</span> <span class="kn">import</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">seaborn</span> <span class="kn">import</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">random</span> 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span> 
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'max_info_columns'</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/Cronin/anaconda/lib/python2.7/site-packages/IPython/html.py:14: ShimWarning: The `IPython.html` package has been deprecated. You should import from `notebook` instead. `IPython.html.widgets` has moved to `ipywidgets`.
+  "`IPython.html.widgets` has moved to `ipywidgets`.", ShimWarning)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-1:-Problem-Statement">Part 1: Problem Statement<a class="anchor-link" href="#Part-1:-Problem-Statement">¶</a></h2><ul>
+<li>Global Terrorism Database (GTD) is an open-source database including information on terrorist events around the world from 1970 through 2014. Some portion of the attacks have not been attributed to a particular terrorist group.</li>
+<li>Use attack type, weapons used, description of the attack, etc. to build a model that can predict what group may have been responsible for an incident. </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-2:-Data-Extraction-/-Loading">Part 2: Data Extraction / Loading<a class="anchor-link" href="#Part-2:-Data-Extraction-/-Loading">¶</a></h2><ul>
+<li>globalterrrorismdb_0615dist.xlsx can be downloaded from <a href="/http://www.start.umd.edu/gtd/">Global Terrorism Database</a></li>
+<li>Converted to csv file called "terrorist_data.csv"</li>
+<li>Review GTD Codebook with feature descriptions</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">terrorism</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'terrorist_data.csv'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/Cronin/anaconda/lib/python2.7/site-packages/IPython/core/interactiveshell.py:2902: DtypeWarning: Columns (4,6,13,31,33,53,61,62,63,75,78,91,93,95,113,114,120) have mixed types. Specify dtype option on import or set low_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Filtered dataset to include only information starting from 1998 because many of the GTD Codebook Features only apply to terrorism incidents occuring after 1997. </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">terrorism_98</span> <span class="o">=</span> <span class="n">terrorism</span><span class="p">[</span><span class="n">terrorism</span><span class="o">.</span><span class="n">iyear</span> <span class="o">>=</span> <span class="mi">1998</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Binary Features: Replace Columns that contain "9" or "99" for unkown values with np.nan</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">fill_nines</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">missing_value_as_neg_nines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ishostkid"</span><span class="p">,</span> <span class="s2">"property"</span><span class="p">,</span><span class="s2">"INT_LOG"</span><span class="p">,</span><span class="s2">"INT_IDEO"</span><span class="p">,</span><span class="s2">"INT_MISC"</span><span class="p">,</span><span class="s2">"INT_ANY"</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">missing_value_as_neg_nines</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">missing_value_as_neg_ninetynines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"nhostkid"</span><span class="p">,</span><span class="s2">"nhostkidus"</span><span class="p">,</span><span class="s2">"nhours"</span><span class="p">,</span><span class="s2">"nperpcap"</span><span class="p">,</span><span class="s2">"nperps"</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">missing_value_as_neg_ninetynines</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">terrorism_98</span> <span class="o">=</span> <span class="n">fill_nines</span><span class="p">(</span><span class="n">terrorism_98</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/Cronin/anaconda/lib/python2.7/site-packages/pandas/core/indexing.py:426: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  self.obj[item] = s
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>"gname" response feature colum contains the name of the terrorist group that carried out the attack.</li>
+<li>Filtered dataframe to create out of sample data where "gname" for rows is "Unknown"</li>
+<li>Filtered datafame for rows with a "gname" for terrorist group names that occur at least 50 times in the dataset</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># create out of sample dataframe where gname is unknown or blank</span>
+<span class="n">terrorism_98_nognames</span> <span class="o">=</span> <span class="n">terrorism_98</span><span class="p">[</span><span class="n">terrorism_98</span><span class="o">.</span><span class="n">gname</span> <span class="o">==</span> <span class="s2">"Unknown"</span><span class="p">]</span>
+
+<span class="c1"># Change existing terrorism_98 dataframe to only include rows that include a gname</span>
+<span class="n">terrorism_98</span> <span class="o">=</span> <span class="n">terrorism_98</span><span class="p">[</span><span class="n">terrorism_98</span><span class="o">.</span><span class="n">gname</span> <span class="o">!=</span> <span class="s2">"Unknown"</span><span class="p">]</span>
+
+<span class="c1"># Filter for gname responses that at least occur 50 times </span>
+<span class="n">gname_counts</span> <span class="o">=</span> <span class="n">terrorism_98</span><span class="o">.</span><span class="n">gname</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">gnames_over_threshold</span> <span class="o">=</span> <span class="n">gname_counts</span><span class="p">[</span><span class="n">gname_counts</span> <span class="o">></span> <span class="mi">50</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">terrorism_98</span> <span class="o">=</span> <span class="n">terrorism_98</span><span class="p">[</span><span class="n">terrorism_98</span><span class="o">.</span><span class="n">gname</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">gnames_over_threshold</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [55]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">"number of unique gnames:"</span><span class="p">,</span><span class="n">terrorism_98</span><span class="o">.</span><span class="n">gname</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">"number of unique gnames:"</span><span class="p">,</span><span class="n">terrorism_98_nognames</span><span class="o">.</span><span class="n">gname</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="c1"># only one: "unkown"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('number of unique gnames:', 75)
+('number of unique gnames:', 1)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Function to filter dataframe by quantity of null values</li>
+<li>Threshold: 80% of rows filled or 20% of rows not filled</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_feature_subset_nulls</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">response_col</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns Features that have less than 20% missing values.</span>
+<span class="sd">    """</span>
+    <span class="c1">#Applying per column: Defined by axis=0</span>
+    <span class="n">feature_null_counts</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">col</span><span class="p">:</span> <span class="n">col</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">num_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">feature_null_counts</span><span class="p">[</span><span class="n">feature_null_counts</span> <span class="o"><</span> <span class="p">(</span><span class="n">threshold</span> <span class="o">*</span> <span class="n">num_rows</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">difference</span><span class="p">([</span><span class="n">response_col</span><span class="p">])</span>
+    <span class="c1"># Exclude features that are Text (these end with _txt)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="o">~</span><span class="n">features</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_txt"</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">features</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">get_feature_subset_nulls</span><span class="p">(</span><span class="n">terrorism_98</span><span class="p">,</span> <span class="s2">"gname"</span><span class="p">)</span>
+<span class="n">features</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[10]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([u'INT_ANY', u'INT_MISC', u'attacktype1', u'city', u'claimed', u'corp1',
+       u'country', u'crit1', u'crit2', u'crit3', u'dbsource', u'doubtterr',
+       u'eventid', u'extended', u'guncertain1', u'iday', u'imonth',
+       u'ishostkid', u'iyear', u'latitude', u'longitude', u'multiple',
+       u'natlty1', u'nkill', u'nkillter', u'nkillus', u'nperpcap', u'nwound',
+       u'nwoundte', u'nwoundus', u'property', u'provstate', u'region',
+       u'scite1', u'specificity', u'success', u'suicide', u'summary',
+       u'target1', u'targsubtype1', u'targtype1', u'vicinity', u'weapsubtype1',
+       u'weaptype1'],
+      dtype='object')</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>numeric_features below includes all non object/text features from "features" above except eventid, which is unnecessary in the model because it represents a unique id per attack.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'INT_ANY'</span><span class="p">,</span><span class="s1">'INT_IDEO'</span><span class="p">,</span><span class="s1">'INT_LOG'</span><span class="p">,</span><span class="s1">'INT_MISC'</span><span class="p">,</span> 
+                    <span class="s1">'attacktype1'</span><span class="p">,</span><span class="s1">'claimed'</span><span class="p">,</span> <span class="s1">'country'</span><span class="p">,</span> <span class="s1">'crit1'</span><span class="p">,</span> 
+                    <span class="s1">'crit2'</span><span class="p">,</span> <span class="s1">'crit3'</span><span class="p">,</span> <span class="s1">'doubtterr'</span><span class="p">,</span><span class="s1">'extended'</span><span class="p">,</span> 
+                    <span class="s1">'guncertain1'</span><span class="p">,</span><span class="s1">'iday'</span><span class="p">,</span><span class="s1">'imonth'</span><span class="p">,</span><span class="s1">'ishostkid'</span><span class="p">,</span> 
+                    <span class="s1">'iyear'</span><span class="p">,</span><span class="s1">'multiple'</span><span class="p">,</span><span class="s1">'natlty1'</span><span class="p">,</span> <span class="s1">'nkill'</span><span class="p">,</span> 
+                    <span class="s1">'nkillter'</span><span class="p">,</span> <span class="s1">'nkillus'</span><span class="p">,</span> <span class="s1">'nperpcap'</span><span class="p">,</span><span class="s1">'nperps'</span><span class="p">,</span> 
+                    <span class="s1">'nwound'</span><span class="p">,</span> <span class="s1">'nwoundte'</span><span class="p">,</span> <span class="s1">'nwoundus'</span><span class="p">,</span> <span class="s1">'property'</span><span class="p">,</span> 
+                    <span class="s1">'region'</span><span class="p">,</span> <span class="s1">'specificity'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'suicide'</span><span class="p">,</span> 
+                    <span class="s1">'targsubtype1'</span><span class="p">,</span> <span class="s1">'targtype1'</span><span class="p">,</span> <span class="s1">'vicinity'</span><span class="p">,</span> 
+                    <span class="s1">'weapsubtype1'</span><span class="p">,</span> <span class="s1">'weaptype1'</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>text_featues includes all object/text columns from "features" above as well as two new features: "location" and "target2", which I felt could be important features that didn't meet the threshold of 0.2</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">text_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'provstate'</span><span class="p">,</span><span class="s1">'location'</span><span class="p">,</span><span class="s1">'city'</span><span class="p">,</span>
+                 <span class="s1">'summary'</span><span class="p">,</span><span class="s1">'target1'</span><span class="p">,</span><span class="s1">'target2'</span><span class="p">,</span>
+                 <span class="s1">'scite1'</span><span class="p">,</span><span class="s1">'dbsource'</span><span class="p">,</span><span class="s1">'corp1'</span><span class="p">]</span>
+
+<span class="n">all_features</span> <span class="o">=</span> <span class="n">numeric_features</span> <span class="o">+</span> <span class="n">text_features</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-3:-Data-Cleaning-(Fill-Null-Values)">Part 3: Data Cleaning (Fill Null Values)<a class="anchor-link" href="#Part-3:-Data-Cleaning-(Fill-Null-Values)">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Numeric Binary Features: Fill null values with probability weighted 0's and 1's from existing probability distribution of filled values</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">binary_fill</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">fill_values</span><span class="p">):</span>
+    <span class="n">binary_columns_notfull</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ishostkid"</span><span class="p">,</span> <span class="s2">"property"</span><span class="p">,</span><span class="s2">"INT_LOG"</span><span class="p">,</span><span class="s2">"INT_IDEO"</span><span class="p">,</span><span class="s2">"INT_MISC"</span><span class="p">,</span><span class="s2">"INT_ANY"</span><span class="p">,</span><span class="s1">'guncertain1'</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">binary_columns_notfull</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fill_values</span><span class="p">:</span>
+            <span class="n">col_pd</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">col_pd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Numeric Range Features: Replace null values with random choice of range integers weighted by their existing probability distribution of filled values</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">range_fill</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">fill_values</span><span class="p">):</span>
+    <span class="n">range_columns_notfull</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"targsubtype1"</span><span class="p">,</span><span class="s2">"weapsubtype1"</span><span class="p">,</span><span class="s2">"natlty1"</span><span class="p">,</span><span class="s2">"specificity"</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">range_columns_notfull</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fill_values</span><span class="p">:</span>
+            <span class="n">col_dist</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">col_dist</span>
+        
+        <span class="n">col_val_missing</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">col_val_missing</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">col_val_missing</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">p</span><span class="o">=</span><span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Numeric Value Features: Replace null values with median value</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">numeric_fill</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">fill_values</span><span class="p">):</span>
+    <span class="n">numeric_columns_notfull</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"nkill"</span><span class="p">,</span><span class="s2">"nkillus"</span><span class="p">,</span><span class="s2">"nkillter"</span><span class="p">,</span><span class="s2">"nwound"</span><span class="p">,</span><span class="s2">"nwoundus"</span><span class="p">,</span><span class="s2">"nwoundte"</span><span class="p">,</span><span class="s1">'nperpcap'</span><span class="p">,</span><span class="s1">'nperps'</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_columns_notfull</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fill_values</span><span class="p">:</span>
+            <span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+
+        <span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">fill_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Function that fills numeric feature null values based on three functions above: binary_fill,range_fill, and numeric_fill</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gen_numeric_features</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    
+    <span class="n">binary_fill_values</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">range_fill_values</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">numerc_fill_values</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">def</span> <span class="nf">transform_numeric_features</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">]</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">binary_fill</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">binary_fill_values</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">range_fill</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">range_fill_values</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">numeric_fill</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">numerc_fill_values</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="k">return</span> <span class="n">transform_numeric_features</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-4:-Model-Setup">Part 4: Model Setup<a class="anchor-link" href="#Part-4:-Model-Setup">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Combining-feature-extraction-steps">Combining feature extraction steps<a class="anchor-link" href="#Combining-feature-extraction-steps">¶</a></h3><ul>
+<li>Description here from Kevin Markham's Machine Learning with Text in Python Part-Time Course</li>
+<li><strong><code>FeatureUnion</code></strong> applies a list of transformers in parallel to the input data (not sequentially), then <strong>concatenates the results</strong>. This is useful for combining several feature extraction mechanisms into a single transformer.</li>
+<li>A pipeline sequentially applies a list of transformers and a final estimator. </li>
+<li>Function below creates a union through a pipeline of both numeric and text features transformed to a document-term matrix</li>
+</ul>
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_union.html">make_union documentation</a> and
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">Pipeline documentation</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.FeatureUnion.html">FeatureUnion documentation</a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [19]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span><span class="p">,</span> <span class="n">make_union</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span>
+
+<span class="n">pipelines</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">get_feature_text</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_text</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">get_text</span>
+
+<span class="c1"># Build a Document Term Matrix using CountVectorizer for ALL Text Columns defined in text_features list.</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">text_features</span><span class="p">:</span>
+    <span class="n">get_text_ft</span> <span class="o">=</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">get_feature_text</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">pipelines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">get_text_ft</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">decode_error</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)))</span>
+
+<span class="c1"># Add the Numeric Data into the pipeline</span>
+<span class="n">get_numeric_features</span> <span class="o">=</span> <span class="n">gen_numeric_features</span><span class="p">(</span><span class="n">numeric_features</span><span class="p">)</span>
+<span class="n">pipelines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">get_numeric_features</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+
+<span class="n">union</span> <span class="o">=</span> <span class="n">make_union</span><span class="p">(</span><span class="o">*</span><span class="n">pipelines</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Split the dataset into train/test/split partitions</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [21]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">terrorism_98</span><span class="p">[</span><span class="n">all_features</span><span class="p">],</span> <span class="n">terrorism_98</span><span class="o">.</span><span class="n">gname</span><span class="p">,</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Create new X_train, X_test based on the combined union of numeric and text features transformed to a document-type matrix</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">X_train_dtm</span> <span class="o">=</span> <span class="n">union</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_dtm</span> <span class="o">=</span> <span class="n">union</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Create new X set to represent out of sample data that models will use to predict terrorist attack group</li>
+<li>Note, because this is out of sample, accuracy can't be determined unless the Global Terrorism Database can verify</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [23]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">x_new_dtm</span> <span class="o">=</span> <span class="n">union</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">terrorism_98_nognames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-5:-Model-Evaluation">Part 5: Model Evaluation<a class="anchor-link" href="#Part-5:-Model-Evaluation">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [24]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">params_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="c1"># 10^-3 to 10^3</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [25]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.grid_search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [26]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">logreg_grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">'C'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)})</span>
+<span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">log_pred_search_pred</span> <span class="o">=</span> <span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">)</span>
+<span class="n">log_pred_search_pred</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[26]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array(['Taliban', 'Garo National Liberation Army', 'Boko Haram', ...,
+       'Taliban', 'Baloch Republican Army (BRA)', 'Chechen Rebels'], dtype=object)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [27]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">log_pred_search_pred</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">log_pred_search_pred</span><span class="p">)</span>
+<span class="c1"># Precision: True Pos / (True pos + False Positives)</span>
+<span class="c1"># Recall: True Pos / (true pos + false negatives)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.9261829653
+             precision    recall  f1-score   support
+
+Abu Sayyaf Group (ASG)       0.98      0.98      0.98        87
+Al-Aqsa Martyrs Brigade       0.88      0.88      0.88        43
+Al-Nusrah Front       0.94      0.30      0.45        50
+  Al-Qa`ida       1.00      0.38      0.56        13
+Al-Qa`ida in Iraq       0.81      0.99      0.89       190
+Al-Qa`ida in the Arabian Peninsula (AQAP)       0.97      0.99      0.98       229
+Al-Qa`ida in the Lands of the Islamic Maghreb (AQLIM)       0.74      0.74      0.74        68
+ Al-Shabaab       0.97      1.00      0.98       513
+Algerian Islamic Extremists       1.00      1.00      1.00       106
+Allied Democratic Forces (ADF)       0.96      0.88      0.92        25
+Animal Liberation Front (ALF)       1.00      0.85      0.92        20
+Ansar Bayt al-Maqdis (Ansar Jerusalem)       1.00      1.00      1.00        26
+Armed Islamic Group (GIA)       0.82      0.89      0.85        36
+Baloch Liberation Army (BLA)       0.97      0.83      0.90        36
+Baloch Liberation Front (BLF)       0.90      0.90      0.90        21
+Baloch Republican Army (BRA)       0.98      0.97      0.98        65
+Bangsamoro Islamic Freedom Movement (BIFM)       1.00      1.00      1.00        56
+Basque Fatherland and Freedom (ETA)       0.99      1.00      0.99        73
+ Boko Haram       0.97      1.00      0.98       388
+Chechen Rebels       0.78      0.84      0.81        99
+Communist Party of India - Maoist (CPI-Maoist)       0.99      0.99      0.99       422
+Conspiracy of Cells of Fire       1.00      0.95      0.97        19
+Corsican National Liberation Front (FLNC)       1.00      0.97      0.99        36
+Donetsk People's Republic       1.00      1.00      1.00       100
+Earth Liberation Front (ELF)       0.93      0.82      0.87        17
+Free Aceh Movement (GAM)       1.00      1.00      1.00        23
+Free Syrian Army       1.00      0.11      0.19        19
+Fulani Militants       1.00      0.89      0.94        62
+Garo National Liberation Army       1.00      1.00      1.00        31
+     Gunmen       0.94      0.89      0.91        88
+Hamas (Islamic Resistance Movement)       0.92      0.92      0.92        95
+Haqqani Network       1.00      0.36      0.53        22
+  Hizballah       0.72      1.00      0.84        21
+Hizbul Mujahideen (HM)       0.95      0.88      0.91        40
+     Huthis       0.89      0.88      0.88        48
+ Individual       0.77      0.67      0.72       119
+Islamic State of Iraq (ISI)       0.88      0.34      0.49        41
+Islamic State of Iraq and the Levant (ISIL)       0.96      1.00      0.98       485
+Janatantrik Terai Mukti Morcha- Jwala Singh (JTMM-J)       1.00      0.96      0.98        28
+  Janjaweed       0.96      0.96      0.96        24
+Jemaah Islamiya (JI)       1.00      0.93      0.96        28
+Kurdistan Workers' Party (PKK)       0.98      1.00      0.99       130
+Lashkar-e-Islam (Pakistan)       0.93      0.88      0.90        32
+Lashkar-e-Jhangvi       0.95      0.76      0.84        25
+Lashkar-e-Taiba (LeT)       0.81      0.80      0.80        49
+Liberation Tigers of Tamil Eelam (LTTE)       0.89      0.97      0.93       204
+Lord's Resistance Army (LRA)       0.77      0.61      0.68        61
+Luhansk People's Republic       1.00      1.00      1.00        34
+    Maoists       0.93      0.98      0.96       257
+  Militants       0.84      0.76      0.80        21
+Moro Islamic Liberation Front (MILF)       0.87      0.99      0.92        91
+Movement for the Emancipation of the Niger Delta (MEND)       0.95      1.00      0.98        20
+Muslim Fundamentalists       0.94      0.88      0.91        77
+National Democratic Front of Bodoland (NDFB)       0.97      0.85      0.91        46
+National Liberation Army of Colombia (ELN)       0.96      0.91      0.93        75
+National Liberation Front of Tripura (NLFT)       1.00      1.00      1.00        20
+National Socialist Council of Nagaland-Isak-Muivah (NSCN-IM)       1.00      0.93      0.96        14
+National Union for the Total Independence of Angola (UNITA)       1.00      0.36      0.53        44
+New People's Army (NPA)       0.77      0.83      0.80       272
+      Other       0.46      0.28      0.35       139
+Palestinian Islamic Jihad (PIJ)       0.94      0.85      0.89        53
+People's War Group (PWG)       0.94      0.94      0.94        16
+Popular Front for the Liberation of Palestine (PFLP)       1.00      0.94      0.97        18
+Revolutionary Armed Forces of Colombia (FARC)       0.94      1.00      0.97       379
+Runda Kumpulan Kecil (RKK)       1.00      0.95      0.97        19
+Salafist Group for Preaching and Fighting (GSPC)       0.97      0.98      0.98        61
+Separatists       0.95      0.92      0.94        88
+Southern Mobility Movement (Yemen)       0.94      1.00      0.97        16
+    Taliban       0.97      0.99      0.98      1266
+Tehrik-i-Taliban Pakistan (TTP)       0.81      0.94      0.87       332
+Thai Islamic Militants       1.00      0.75      0.86        16
+  Tribesmen       0.94      0.74      0.83        23
+United Baloch Army (UBA)       1.00      0.89      0.94        19
+United Liberation Front of Assam (ULFA)       0.97      1.00      0.99        78
+United Self Defense Units of Colombia (AUC)       1.00      0.39      0.56        18
+
+avg / total       0.93      0.93      0.92      7925
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [29]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[29]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'C': 1000.0}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [30]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">grid_scores_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[30]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>[mean: 0.69746, std: 0.00418, params: {'C': 0.001},
+ mean: 0.88551, std: 0.00936, params: {'C': 0.01},
+ mean: 0.93294, std: 0.01248, params: {'C': 0.10000000000000001},
+ mean: 0.92872, std: 0.01120, params: {'C': 1.0},
+ mean: 0.93186, std: 0.01243, params: {'C': 10.0},
+ mean: 0.93294, std: 0.01370, params: {'C': 100.0},
+ mean: 0.93375, std: 0.00960, params: {'C': 1000.0}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [31]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[31]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.93374797187669012</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [32]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [33]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">))</span>
+<span class="c1"># diagnoal is good. Anything not in diagnoal is misclassified</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[33]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[85,  0,  0, ...,  0,  0,  0],
+       [ 0, 38,  0, ...,  0,  0,  0],
+       [ 0,  0, 15, ...,  0,  0,  0],
+       ..., 
+       [ 0,  0,  0, ..., 17,  0,  0],
+       [ 0,  0,  0, ...,  0, 78,  0],
+       [ 0,  0,  0, ...,  0,  0,  7]])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [34]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>             precision    recall  f1-score   support
+
+Abu Sayyaf Group (ASG)       0.98      0.98      0.98        87
+Al-Aqsa Martyrs Brigade       0.88      0.88      0.88        43
+Al-Nusrah Front       0.94      0.30      0.45        50
+  Al-Qa`ida       1.00      0.38      0.56        13
+Al-Qa`ida in Iraq       0.81      0.99      0.89       190
+Al-Qa`ida in the Arabian Peninsula (AQAP)       0.97      0.99      0.98       229
+Al-Qa`ida in the Lands of the Islamic Maghreb (AQLIM)       0.74      0.74      0.74        68
+ Al-Shabaab       0.97      1.00      0.98       513
+Algerian Islamic Extremists       1.00      1.00      1.00       106
+Allied Democratic Forces (ADF)       0.96      0.88      0.92        25
+Animal Liberation Front (ALF)       1.00      0.85      0.92        20
+Ansar Bayt al-Maqdis (Ansar Jerusalem)       1.00      1.00      1.00        26
+Armed Islamic Group (GIA)       0.82      0.89      0.85        36
+Baloch Liberation Army (BLA)       0.97      0.83      0.90        36
+Baloch Liberation Front (BLF)       0.90      0.90      0.90        21
+Baloch Republican Army (BRA)       0.98      0.97      0.98        65
+Bangsamoro Islamic Freedom Movement (BIFM)       1.00      1.00      1.00        56
+Basque Fatherland and Freedom (ETA)       0.99      1.00      0.99        73
+ Boko Haram       0.97      1.00      0.98       388
+Chechen Rebels       0.78      0.84      0.81        99
+Communist Party of India - Maoist (CPI-Maoist)       0.99      0.99      0.99       422
+Conspiracy of Cells of Fire       1.00      0.95      0.97        19
+Corsican National Liberation Front (FLNC)       1.00      0.97      0.99        36
+Donetsk People's Republic       1.00      1.00      1.00       100
+Earth Liberation Front (ELF)       0.93      0.82      0.87        17
+Free Aceh Movement (GAM)       1.00      1.00      1.00        23
+Free Syrian Army       1.00      0.11      0.19        19
+Fulani Militants       1.00      0.89      0.94        62
+Garo National Liberation Army       1.00      1.00      1.00        31
+     Gunmen       0.94      0.89      0.91        88
+Hamas (Islamic Resistance Movement)       0.92      0.92      0.92        95
+Haqqani Network       1.00      0.36      0.53        22
+  Hizballah       0.72      1.00      0.84        21
+Hizbul Mujahideen (HM)       0.95      0.88      0.91        40
+     Huthis       0.89      0.88      0.88        48
+ Individual       0.77      0.67      0.72       119
+Islamic State of Iraq (ISI)       0.88      0.34      0.49        41
+Islamic State of Iraq and the Levant (ISIL)       0.96      1.00      0.98       485
+Janatantrik Terai Mukti Morcha- Jwala Singh (JTMM-J)       1.00      0.96      0.98        28
+  Janjaweed       0.96      0.96      0.96        24
+Jemaah Islamiya (JI)       1.00      0.93      0.96        28
+Kurdistan Workers' Party (PKK)       0.98      1.00      0.99       130
+Lashkar-e-Islam (Pakistan)       0.93      0.88      0.90        32
+Lashkar-e-Jhangvi       0.95      0.76      0.84        25
+Lashkar-e-Taiba (LeT)       0.81      0.80      0.80        49
+Liberation Tigers of Tamil Eelam (LTTE)       0.89      0.97      0.93       204
+Lord's Resistance Army (LRA)       0.77      0.61      0.68        61
+Luhansk People's Republic       1.00      1.00      1.00        34
+    Maoists       0.93      0.98      0.96       257
+  Militants       0.84      0.76      0.80        21
+Moro Islamic Liberation Front (MILF)       0.87      0.99      0.92        91
+Movement for the Emancipation of the Niger Delta (MEND)       0.95      1.00      0.98        20
+Muslim Fundamentalists       0.94      0.88      0.91        77
+National Democratic Front of Bodoland (NDFB)       0.97      0.85      0.91        46
+National Liberation Army of Colombia (ELN)       0.96      0.91      0.93        75
+National Liberation Front of Tripura (NLFT)       1.00      1.00      1.00        20
+National Socialist Council of Nagaland-Isak-Muivah (NSCN-IM)       1.00      0.93      0.96        14
+National Union for the Total Independence of Angola (UNITA)       1.00      0.36      0.53        44
+New People's Army (NPA)       0.77      0.83      0.80       272
+      Other       0.46      0.28      0.35       139
+Palestinian Islamic Jihad (PIJ)       0.94      0.85      0.89        53
+People's War Group (PWG)       0.94      0.94      0.94        16
+Popular Front for the Liberation of Palestine (PFLP)       1.00      0.94      0.97        18
+Revolutionary Armed Forces of Colombia (FARC)       0.94      1.00      0.97       379
+Runda Kumpulan Kecil (RKK)       1.00      0.95      0.97        19
+Salafist Group for Preaching and Fighting (GSPC)       0.97      0.98      0.98        61
+Separatists       0.95      0.92      0.94        88
+Southern Mobility Movement (Yemen)       0.94      1.00      0.97        16
+    Taliban       0.97      0.99      0.98      1266
+Tehrik-i-Taliban Pakistan (TTP)       0.81      0.94      0.87       332
+Thai Islamic Militants       1.00      0.75      0.86        16
+  Tribesmen       0.94      0.74      0.83        23
+United Baloch Army (UBA)       1.00      0.89      0.94        19
+United Liberation Front of Assam (ULFA)       0.97      1.00      0.99        78
+United Self Defense Units of Colombia (AUC)       1.00      0.39      0.56        18
+
+avg / total       0.93      0.93      0.92      7925
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="KNN">KNN<a class="anchor-link" href="#KNN">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [35]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">knn_grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">KNeighborsClassifier</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">'n_neighbors'</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">2</span><span class="p">)})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [36]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">knn_grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[36]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=None, error_score='raise',
+       estimator=KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+           weights='uniform'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'n_neighbors': [3, 5, 7, 9, 11, 13, 15, 17, 19, 21]},
+       pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [37]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">X_train_dtm</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[37]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(18490, 75079)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [38]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">knn_grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[38]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.71411573823688479</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [39]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">knn_grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[39]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'n_neighbors': 5}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [40]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">knn_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.721892744479
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [54]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">nb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">nb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span><span class="n">y_train</span><span class="p">)</span> <span class="c1"># Use X.toarray() to convert to a dense numpy array due to sparse matrix</span>
+<span class="n">nb_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[54]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.83848580441640375</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [42]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">params_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="c1"># 10^-3 to 10^3</span>
+<span class="n">logreg_grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">'max_depth'</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">10000</span><span class="p">]})</span>
+<span class="c1"># C is cost function. The lower value of C, the lower the complexity of the model. </span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [43]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">tree_grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">'max_depth'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)})</span>
+<span class="n">tree_grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[43]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=None, error_score='raise',
+       estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'max_depth': array([  1.00000e-03,   1.58489e-02,   2.51189e-01,   3.98107e+00,
+         6.30957e+01,   1.00000e+03])},
+       pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [44]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">tree_grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[44]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'max_depth': 1000.0}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [45]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">tree_grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[45]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.94786371011357495</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [46]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">forest_grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">'n_estimators'</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">]})</span>
+<span class="c1"># of trees in n_estimators</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [47]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">forest_grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[47]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=None, error_score='raise',
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'n_estimators': [10, 100, 1000]},
+       pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [48]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">forest_grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[48]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'n_estimators': 1000}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [49]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">forest_grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[49]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.94726879394267172</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SVC">SVC<a class="anchor-link" href="#SVC">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [50]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">svc_grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">'C'</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [51]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">svc_grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[51]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=None, error_score='raise',
+       estimator=SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
+  max_iter=-1, probability=False, random_state=None, shrinking=True,
+  tol=0.001, verbose=False),
+       fit_params={}, iid=True, n_jobs=1, param_grid={'C': [0.01, 1, 100]},
+       pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [52]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">svc_grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[52]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'C': 100}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [53]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">svc_grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[53]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.88561384532179555</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Best-Model">Best Model<a class="anchor-link" href="#Best-Model">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">VotingClassifier</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">clf1</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clf2</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clf3</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">clf4</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Hard: Everyone has a vote and will take a majority of the "Yes" votes. </span>
+<span class="c1"># Soft: It adds all the probabilites, then averages the probabilites, takes the best.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [62]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">eclf1</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="o">=</span><span class="p">[(</span><span class="s1">'lr'</span><span class="p">,</span> <span class="n">clf1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'rf'</span><span class="p">,</span> <span class="n">clf2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'knn'</span><span class="p">,</span> <span class="n">clf3</span><span class="p">),(</span><span class="s1">'SVC'</span><span class="p">,</span><span class="n">clf4</span><span class="p">)],</span> <span class="n">voting</span><span class="o">=</span><span class="s1">'hard'</span><span class="p">)</span>
+<span class="n">eclf1</span> <span class="o">=</span> <span class="n">eclf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">eclf1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">eclf1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">,</span><span class="n">y_test</span><span class="p">))</span> <span class="c1">#automatically does cross validation</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['Taliban' 'Garo National Liberation Army' 'Boko Haram' ..., 'Taliban'
+ 'Baloch Republican Army (BRA)' 'Chechen Rebels']
+0.932870662461
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [64]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">eclf2</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="o">=</span><span class="p">[(</span><span class="s1">'lr'</span><span class="p">,</span> <span class="n">clf1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'rf'</span><span class="p">,</span> <span class="n">clf2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'knn'</span><span class="p">,</span> <span class="n">clf3</span><span class="p">)],</span><span class="n">voting</span><span class="o">=</span><span class="s1">'soft'</span><span class="p">)</span>
+<span class="n">eclf2</span> <span class="o">=</span> <span class="n">eclf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dtm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">eclf2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">eclf2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_dtm</span><span class="p">,</span><span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['Taliban' 'Garo National Liberation Army' 'Boko Haram' ..., 'Taliban'
+ 'Baloch Republican Army (BRA)' 'Chechen Rebels']
+0.926561514196
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-6:-Insights/Conclusions">Part 6: Insights/Conclusions<a class="anchor-link" href="#Part-6:-Insights/Conclusions">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Created stored predictions for out of sample data based on each model</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_new_logreg</span> <span class="o">=</span> <span class="n">logreg_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_dtm</span><span class="p">,</span><span class="n">delegate</span><span class="o">=</span><span class="s1">'estimator'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [68]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_new_knn</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_dtm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_new_nb</span> <span class="o">=</span> <span class="n">nb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_dtm</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_new_tree</span> <span class="o">=</span> <span class="n">tree_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_dtm</span><span class="p">,</span><span class="n">delegate</span><span class="o">=</span><span class="s1">'estimator'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_new_forest</span> <span class="o">=</span> <span class="n">forest_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_dtm</span><span class="p">,</span><span class="n">delegate</span><span class="o">=</span><span class="s1">'estimator'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_new_svc</span> <span class="o">=</span> <span class="n">svc_grid_search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_dtm</span><span class="p">,</span><span class="n">delegate</span><span class="o">=</span><span class="s1">'estimator'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Model-Ranking-by-Accuracy-Score">Model Ranking by Accuracy Score<a class="anchor-link" href="#Model-Ranking-by-Accuracy-Score">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Tree Grid Search: 0.9478</li>
+<li>Forest Grid Search: 0.9472</li>
+<li>Logistic Regression Grid Search: 0.9337 </li>
+<li>eclf1 Voting Classifier: Hard Vote: 0.9328</li>
+<li>eclf2 Voting Classifier: Soft Vote: 0.9265</li>
+<li>SVC Grid Search: 0.8856</li>
+<li>Naive Bayes: 0.8384</li>
+<li>KNN Grid Search: 0.7218</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="These-machine-learning-models-classified-the-terrorist-attack-group-with-fairly-high-accuracy.">These machine learning models classified the terrorist attack group with fairly high accuracy.<a class="anchor-link" href="#These-machine-learning-models-classified-the-terrorist-attack-group-with-fairly-high-accuracy.">¶</a></h4><h4 id="The-decision-tree-grid-seach-model-perfomed-the-best-with-an-accuracy-score-of-.9478.">The decision tree grid seach model perfomed the best with an accuracy score of .9478.<a class="anchor-link" href="#The-decision-tree-grid-seach-model-perfomed-the-best-with-an-accuracy-score-of-.9478.">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Limitations: It is important to note that these models were tested on a dataset with data starting from the year 1998 and where terrorist attack groups were filtered to include only attacks by a group that occured at least 50 times in the dataset.</p>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="/tag/startupml.html">StartupML</a>
+    </p>
+  </div>
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; Chris Cronin </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Chris' Blog ",
+  "url" : "",
+  "image": "/images/profshot.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+Title: Metis - Project Mcnulty
+Slug: Metis - Project Mcnulty
+Date: 2016-03-10 20:00
+Category: Projects
+Tags: Metis
+Author: Chris Cronin
+featured_image: images/census-logo.png
+introduction:Project descriptionClassified Census data to identify part­-time and full­-time workers using KNN, Logistic Regression, SVM, and Random Forest classification models. Evaluated models using 3­fold cross validation, optimized parameters using GridSearch, and combined models using VotingClassifier. Setup an AWS instance to work with the data, and created an interactive visualization using D3.

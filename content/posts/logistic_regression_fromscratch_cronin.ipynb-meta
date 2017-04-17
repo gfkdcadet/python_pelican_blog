@@ -1,0 +1,8 @@
+Title: StartupML Application Task
+Slug: StartupML Application Task
+Date: 2016-07-25 20:00
+Category: Projects
+Tags: StartupML
+Author: Chris Cronin
+featured_image: images/LogReg_1.png
+introduction:Overview of the math behind Logistic Regression, with an example using gradient descent to find the best weights on a data set predicting breast cancer survival.

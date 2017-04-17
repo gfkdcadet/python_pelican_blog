@@ -1,0 +1,8 @@
+Title: Metis - Project Fletcher
+Slug: Metis - Project Fletcher
+Date: 2016-04-01 20:00
+Category: Projects
+Tags: Metis
+Author: Chris Cronin
+featured_image: images/nlp.jpg
+introduction:Project descriptionAccessing Crunchbase and Twitter’s APIs, merged recent tweets of 30,000 companies to predict a company’s operational status using advanced natural language processing techniques. Implemented TFIDF, Naive Bayes, Logistic Regression, and latent semantic indexing (LSI) models for classification.

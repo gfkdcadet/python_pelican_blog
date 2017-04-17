@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.index_top %}
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle ads-responsive"
+       data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"
+       data-ad-slot="{{ GOOGLE_ADSENSE.ads.index_top }}"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+{% endif %}
+
+{% for article in articles_page.object_list %}
+<article>
+  <div>
+    {% if summarise or article.metadata['summary'] or SUMMARY_MAX_LENGTH %}
+      {% if  article.featured_image %}
+        <img src="{{ SITEURL }}/{{ article.featured_image }}" style='width: 250px; height: 200px; float: left; border: 1px solid #eee'><div style='margin-left: 280px;'>
+      {% endif %}
+      <div>
+        <h2><a href="{{ SITEURL }}/{{ article.url }}{% if not DISABLE_URL_HASH %}#{{ article.slug }}{% endif %}">{{ article.title }}</a></h2>
+        {{ article.introduction }}
+      </div>
+    {% else %}
+      {{ article.content }}
+    {% endif %}
+
+  </div>
+  <br style="clear:both"></br>
+  <div style="border:1px solid black"></div>
+</article>
+
+{% endfor %}
+
+{% include "partial/pagination.html" %}
+
+{% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.index_bottom %}
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle ads-responsive"
+       data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"
+       data-ad-slot="{{ GOOGLE_ADSENSE.ads.index_bottom }}"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+{% endif %}
+
+
+{% endblock %}

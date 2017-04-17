@@ -1,0 +1,8 @@
+Title: StartupML_Project_Adversarial
+Slug: StartupML_Project_Adversarial
+Date: 2016-12-20 20:00
+Category: Projects
+Tags: StartupML
+Author: Chris Cronin
+featured_image: images/fraud-detection.png
+introduction:Project descriptionCreated unsupervised feature extraction framework to detect adversarial use cases including information security, money laundering, and transaction fraud.<ul><li>Developed graphical representations of web traffic flow through honeypot servers in order to detect traffic patterns representing hackers.</li><li>Wrote python scripts to scrape, detect, and log fraudulent credit card postings on anonymous websites.</li></ul>

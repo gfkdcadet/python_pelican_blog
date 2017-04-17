@@ -1,0 +1,8 @@
+Title: Metis - Project Luther
+Slug: Metis - Project Luther
+Date: 2016-02-15 20:00
+Category: Projects
+Tags: Metis
+Author: Chris Cronin
+featured_image: images/imdb_new.png
+introduction:Project descriptionWebscraped IMDB movie rankings using python’s BeautifulSoup package, and merged this data with BoxOfficeMojo information related to movie box office gross. Created a linear regression model that indicated IMBD rankings as an important factor in predicting movie gross.
