@@ -29,14 +29,13 @@ AUTHOR_FEED_RSS = None
 USE_FOLDER_AS_CATEGORY = False
 MAIN_MENU = True
 
-MENUITEMS = (('Projects','/category/projects.html'),
-             ('Tags', '/tags.html'),
-             ('Resources','/pages/resources.html'),)
+MENUITEMS = (('Tags', '/tags.html'),)
 
 # Blogroll
 LINKS = (('About','/pages/about.html'),
         ('Projects','/category/projects.html'),
         ('Programs','/pages/programs.html'),
+        ('Resources','/pages/resources.html'),
         ('Conferences','/pages/conferences.html'),)
 
 # Social widget
